@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+flask
+dill
+mlflow
+xgboost
+catboost
+ucimlrepo
+pytest
+evidently
+prometheus-client
+# -e .
