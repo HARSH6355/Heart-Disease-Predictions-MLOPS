@@ -1,0 +1,45 @@
+name: mlops-ci
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+  workflow_dispatch:
+
+jobs:
+  test-and-train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run unit tests
+        run: pytest -q
+
+      - name: Run linting
+        run: ruff check .
+
+      - name: Run training pipeline
+        run: python -m src.pipeline.train_pipeline
+
+      - name: Upload generated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: training-artifacts
+          path: |
+            artifacts/
+            logs/
+            mlruns/

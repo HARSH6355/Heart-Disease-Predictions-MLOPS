@@ -12,4 +12,6 @@ ucimlrepo
 pytest
 evidently
 prometheus-client
+gunicorn
+ruff
 # -e .
