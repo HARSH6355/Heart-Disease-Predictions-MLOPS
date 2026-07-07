@@ -37,6 +37,7 @@ class ModelTrainer:
                 ),
             }
 
+            mlflow.set_tracking_uri("sqlite:///mlflow.db")
             mlflow.set_experiment(self.config.experiment_name)
 
             results: dict[str, dict[str, float]] = {}
