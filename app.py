@@ -1,4 +1,6 @@
+import threading
 import time
+import webbrowser
 
 from flask import Flask, jsonify, render_template, request
 from prometheus_client import Counter, Histogram, generate_latest
@@ -97,5 +99,12 @@ def _coerce_payload(payload: dict) -> dict:
     }
 
 
+def _open_browser():
+    """Open the app in the default browser after a short delay."""
+    webbrowser.open("http://127.0.0.1:5000")
+
+
 if __name__ == "__main__":
+    # Open browser automatically after 1.5s (gives Flask time to start)
+    threading.Timer(1.5, _open_browser).start()
     app.run(host="0.0.0.0", port=5000, debug=True)

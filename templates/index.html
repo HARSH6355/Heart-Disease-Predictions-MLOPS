@@ -3,30 +3,211 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Heart Disease Risk API</title>
+    <title>Heart Disease Risk Prediction</title>
+    <meta name="description" content="Predict heart disease risk using machine learning. Enter patient data to get an instant risk assessment.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
+
     <main class="shell">
-      <section class="panel">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-icon">&#x2764;&#xFE0F;</div>
         <h1>Heart Disease Risk Prediction</h1>
-        <form action="/predict" method="post" class="grid-form">
-          <label>Age <input name="age" type="number" step="1" value="54" required></label>
-          <label>Sex <input name="sex" type="number" min="0" max="1" value="1" required></label>
-          <label>Chest pain type <input name="cp" type="number" min="1" max="4" value="4" required></label>
-          <label>Resting BP <input name="trestbps" type="number" step="1" value="130" required></label>
-          <label>Cholesterol <input name="chol" type="number" step="1" value="250" required></label>
-          <label>Fasting blood sugar <input name="fbs" type="number" min="0" max="1" value="0" required></label>
-          <label>Rest ECG <input name="restecg" type="number" min="0" max="2" value="1" required></label>
-          <label>Max heart rate <input name="thalach" type="number" step="1" value="150" required></label>
-          <label>Exercise angina <input name="exang" type="number" min="0" max="1" value="0" required></label>
-          <label>Oldpeak <input name="oldpeak" type="number" step="0.1" value="1.0" required></label>
-          <label>Slope <input name="slope" type="number" min="1" max="3" value="2" required></label>
-          <label>CA <input name="ca" type="number" min="0" max="3" value="0" required></label>
-          <label>Thal <input name="thal" type="number" value="3" required></label>
-          <button type="submit">Predict</button>
+        <p class="subtitle">Enter patient data below to get an instant ML-powered risk assessment</p>
+      </header>
+
+      <!-- Form Card -->
+      <section class="card" id="form-card">
+        <h2 class="card-title">Patient Information</h2>
+        <form id="predict-form" class="grid-form">
+          <label>
+            <span class="field-label">Age</span>
+            <input name="age" type="number" step="1" value="54" required id="input-age">
+          </label>
+          <label>
+            <span class="field-label">Sex</span>
+            <select name="sex" required id="input-sex">
+              <option value="1">Male (1)</option>
+              <option value="0">Female (0)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Chest Pain Type</span>
+            <select name="cp" required id="input-cp">
+              <option value="1">Typical Angina (1)</option>
+              <option value="2">Atypical Angina (2)</option>
+              <option value="3">Non-Anginal Pain (3)</option>
+              <option value="4" selected>Asymptomatic (4)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Resting BP (mm Hg)</span>
+            <input name="trestbps" type="number" step="1" value="130" required id="input-trestbps">
+          </label>
+          <label>
+            <span class="field-label">Cholesterol (mg/dl)</span>
+            <input name="chol" type="number" step="1" value="250" required id="input-chol">
+          </label>
+          <label>
+            <span class="field-label">Fasting Blood Sugar &gt; 120</span>
+            <select name="fbs" required id="input-fbs">
+              <option value="0" selected>No (0)</option>
+              <option value="1">Yes (1)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Rest ECG</span>
+            <select name="restecg" required id="input-restecg">
+              <option value="0">Normal (0)</option>
+              <option value="1" selected>ST-T Abnormality (1)</option>
+              <option value="2">Left Ventricular Hypertrophy (2)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Max Heart Rate</span>
+            <input name="thalach" type="number" step="1" value="150" required id="input-thalach">
+          </label>
+          <label>
+            <span class="field-label">Exercise Induced Angina</span>
+            <select name="exang" required id="input-exang">
+              <option value="0" selected>No (0)</option>
+              <option value="1">Yes (1)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Oldpeak (ST depression)</span>
+            <input name="oldpeak" type="number" step="0.1" value="1.0" required id="input-oldpeak">
+          </label>
+          <label>
+            <span class="field-label">Slope</span>
+            <select name="slope" required id="input-slope">
+              <option value="1">Upsloping (1)</option>
+              <option value="2" selected>Flat (2)</option>
+              <option value="3">Downsloping (3)</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">CA (Major Vessels 0-3)</span>
+            <input name="ca" type="number" min="0" max="3" value="0" required id="input-ca">
+          </label>
+          <label>
+            <span class="field-label">Thal</span>
+            <select name="thal" required id="input-thal">
+              <option value="3" selected>Normal (3)</option>
+              <option value="6">Fixed Defect (6)</option>
+              <option value="7">Reversible Defect (7)</option>
+            </select>
+          </label>
+          <div class="btn-row">
+            <button type="submit" id="btn-predict">
+              <span class="btn-text">Predict Risk</span>
+              <span class="btn-spinner" id="btn-spinner"></span>
+            </button>
+          </div>
         </form>
       </section>
+
+      <!-- Result Card (hidden initially) -->
+      <section class="card result-card hidden" id="result-card">
+        <div class="result-icon" id="result-icon"></div>
+        <h2 class="result-title" id="result-title"></h2>
+        <p class="result-confidence" id="result-confidence"></p>
+        <div class="result-details" id="result-details"></div>
+        <button class="btn-secondary" id="btn-reset" type="button">Run Another Prediction</button>
+      </section>
+
+      <!-- Error Card (hidden initially) -->
+      <section class="card error-card hidden" id="error-card">
+        <div class="result-icon">&#x26A0;&#xFE0F;</div>
+        <h2 class="result-title" style="color: var(--clr-danger);">Prediction Failed</h2>
+        <p class="error-msg" id="error-msg"></p>
+        <button class="btn-secondary" id="btn-retry" type="button">Try Again</button>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>Heart Disease Prediction &mdash; MLOps Project &bull; Powered by Flask &amp; Scikit-Learn</p>
+      </footer>
     </main>
+
+    <script>
+      const form = document.getElementById('predict-form');
+      const formCard = document.getElementById('form-card');
+      const resultCard = document.getElementById('result-card');
+      const errorCard = document.getElementById('error-card');
+      const btnPredict = document.getElementById('btn-predict');
+      const btnSpinner = document.getElementById('btn-spinner');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Show loading state
+        btnPredict.classList.add('loading');
+        btnPredict.disabled = true;
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+          const res = await fetch('/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Unknown error');
+          }
+
+          // Show result
+          const isRisk = data.prediction === 1;
+          const confidence = (data.confidence * 100).toFixed(1);
+
+          document.getElementById('result-icon').textContent = isRisk ? '⚠️' : '✅';
+          document.getElementById('result-title').textContent = isRisk
+            ? 'Heart Disease Risk Detected'
+            : 'No Heart Disease Risk';
+          document.getElementById('result-title').style.color = isRisk
+            ? 'var(--clr-danger)'
+            : 'var(--clr-success)';
+          document.getElementById('result-confidence').textContent =
+            `Model Confidence: ${confidence}%`;
+          document.getElementById('result-details').innerHTML =
+            `<div class="confidence-bar"><div class="confidence-fill ${isRisk ? 'fill-danger' : 'fill-success'}" style="width:${confidence}%"></div></div>`;
+
+          resultCard.classList.remove('hidden');
+          errorCard.classList.add('hidden');
+          formCard.classList.add('hidden');
+
+          resultCard.scrollIntoView({ behavior: 'smooth' });
+
+        } catch (err) {
+          document.getElementById('error-msg').textContent = err.message;
+          errorCard.classList.remove('hidden');
+          resultCard.classList.add('hidden');
+          formCard.classList.add('hidden');
+        } finally {
+          btnPredict.classList.remove('loading');
+          btnPredict.disabled = false;
+        }
+      });
+
+      // Reset buttons
+      document.getElementById('btn-reset').addEventListener('click', resetView);
+      document.getElementById('btn-retry').addEventListener('click', resetView);
+
+      function resetView() {
+        formCard.classList.remove('hidden');
+        resultCard.classList.add('hidden');
+        errorCard.classList.add('hidden');
+        formCard.scrollIntoView({ behavior: 'smooth' });
+      }
+    </script>
   </body>
 </html>
