@@ -1,7 +1,9 @@
 # Heart Disease Prediction — End-to-End MLOps Report
 
-**Author:** Harsh  
+**Author:** Trivedi Harsh Ashutoshbhai  
+**BITS ID:** 2024ac05530  
 **Repository:** [https://github.com/HARSH6355/Heart-Disease-Predictions-MLOPS](https://github.com/HARSH6355/Heart-Disease-Predictions-MLOPS)  
+**Video Link:** [https://1drv.ms/v/c/29b94b9a9e4f5f64/IQDbUJcfORazTKxHeUZBscRaAT3RFqti1EAlmb4lHYaIjKw?e=POGyDB](https://1drv.ms/v/c/29b94b9a9e4f5f64/IQDbUJcfORazTKxHeUZBscRaAT3RFqti1EAlmb4lHYaIjKw?e=POGyDB)  
 **Date:** July 2026
 
 ---
@@ -895,10 +897,9 @@ The best performing model (**Logistic Regression**) achieved an F1-Score of **0.
 
 ---
 
-## Code Repository
+## Code Repository & Video Link
 
 **GitHub:** [https://github.com/HARSH6355/Heart-Disease-Predictions-MLOPS](https://github.com/HARSH6355/Heart-Disease-Predictions-MLOPS)
 
----
+**Video Link:** [https://1drv.ms/v/c/29b94b9a9e4f5f64/IQDbUJcfORazTKxHeUZBscRaAT3RFqti1EAlmb4lHYaIjKw?e=POGyDB](https://1drv.ms/v/c/29b94b9a9e4f5f64/IQDbUJcfORazTKxHeUZBscRaAT3RFqti1EAlmb4lHYaIjKw?e=POGyDB)
 
-*Report generated for the Heart Disease Prediction MLOps Assignment — July 2026*

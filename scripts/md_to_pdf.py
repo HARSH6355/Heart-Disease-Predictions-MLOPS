@@ -44,7 +44,7 @@ class ReportPDF(FPDF):
         self.set_font("Helvetica", "B", 10)
         self.set_text_color(100, 100, 100)
         self.cell(0, 8, "Heart Disease Prediction MLOps Report", align="C")
-        self.ln(4)
+        self.ln(8)
         self.set_draw_color(42, 94, 168)
         self.set_line_width(0.5)
         self.line(10, self.get_y(), self.w - 10, self.get_y())
@@ -202,12 +202,11 @@ def main():
             x_offset = 14 + indent * 3
             pdf.set_x(x_offset)
             # Clean markdown formatting
-            text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)  # bold
             text = re.sub(r"`(.+?)`", r"\1", text)  # inline code
             text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)  # links
             text = _sanitize(text)
             cell_width = max(pdf.w - x_offset - 10, 40)
-            pdf.multi_cell(cell_width, 6, "-  " + text)
+            pdf.multi_cell(cell_width, 6, "-  " + text, align="L", markdown=True)
             i += 1
             continue
 
@@ -233,11 +232,10 @@ def main():
         pdf.set_text_color(30, 30, 30)
         text = line.strip()
         # Clean markdown formatting
-        text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
         text = re.sub(r"`(.+?)`", r"\1", text)
         text = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", text)
         text = _sanitize(text)
-        pdf.multi_cell(0, 6, text)
+        pdf.multi_cell(0, 6, text, align="L", markdown=True)
         i += 1
 
     pdf.output(str(PDF_PATH))
