@@ -82,6 +82,8 @@ This creates:
 .\.conda\python.exe app.py
 ```
 
+The application will automatically open in your default web browser at `http://127.0.0.1:5000/`. You can use the modern, AJAX-powered web interface to enter patient data and receive instant predictions.
+
 Endpoints:
 
 - `GET /health`
@@ -139,10 +141,14 @@ Prometheus config is available at:
 monitoring/prometheus.yml
 ```
 
+## Documentation & Report
+
+The final MLOps report has been compiled and is available in:
+- Markdown format: `docs/report.md`
+- PDF format: `docs/report.pdf` (Generated via `scripts/md_to_pdf.py`)
+
+All required screenshots (EDA, MLflow, CI/CD, Docker, Kubernetes) are categorized in `docs/screenshots/`.
+
 ## Manual Items Still Required
 
-- Run `notebooks/EDA.ipynb` and save screenshots of key visuals.
-- Run `notebooks/Model_Training.ipynb` or the training script.
-- Capture screenshots for MLflow, GitHub Actions, Docker, Kubernetes, and monitoring.
-- Complete `docs/report.md` and export it as PDF or DOCX if your submission requires that format.
-- Record the short video walkthrough requested by the assignment.
+- **Video Walkthrough**: Record the short video walkthrough demonstrating the overall pipeline as requested by the assignment.
